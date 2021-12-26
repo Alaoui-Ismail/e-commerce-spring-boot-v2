@@ -4,18 +4,12 @@ public class ParentCategoryDto {
 
 
     private Long parentCategoryId;
-    private String parentCategoryName;
-    private String parentCategoryDescription;
-
-
-    public ParentCategoryDto(){}
+    private String name;
+    private String description;
 
 
 
-    public ParentCategoryDto(String parentCategoryName, String parentCategoryDescription) {
-        this.parentCategoryName = parentCategoryName;
-        this.parentCategoryDescription = parentCategoryDescription;
-    }
+
 
     public Long getParentCategoryId() {
         return parentCategoryId;
@@ -25,19 +19,35 @@ public class ParentCategoryDto {
         this.parentCategoryId = parentCategoryId;
     }
 
-    public String getParentCategoryName() {
-        return parentCategoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setParentCategoryName(String parentCategoryName) {
-        this.parentCategoryName = parentCategoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getParentCategoryDescription() {
-        return parentCategoryDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setParentCategoryDescription(String parentCategoryDescription) {
-        this.parentCategoryDescription = parentCategoryDescription;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ParentCategoryDto(){}
+
+    public ParentCategoryDto(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "ParentCategoryDto{" +
+                "parentCategoryId=" + parentCategoryId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

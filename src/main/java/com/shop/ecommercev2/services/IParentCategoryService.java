@@ -10,7 +10,7 @@ public interface IParentCategoryService {
     ParentCategoryDto saveParentCategory( ParentCategoryDto parentCategoryDto );
 
     //update parentCategory
-    ParentCategoryDto updateParentCategory( ParentCategoryDto parentCategoryDto );
+    ParentCategoryDto updateParentCategory( ParentCategoryDto parentCategoryDto,Long id );
 
     //delete parentCategory
     void deleteParentCategory(ParentCategoryDto parentCategoryDto );

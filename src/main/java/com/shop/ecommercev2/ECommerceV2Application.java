@@ -1,5 +1,6 @@
 package com.shop.ecommercev2;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -22,5 +23,10 @@ public class ECommerceV2Application {
 
     public SpringApplicationContext springApplicationContext(){
         return new SpringApplicationContext();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

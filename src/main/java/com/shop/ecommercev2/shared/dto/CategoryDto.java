@@ -1,32 +1,40 @@
-package com.shop.ecommercev2.entities;
+package com.shop.ecommercev2.shared.dto;
 
-import javax.persistence.*;
+import com.shop.ecommercev2.entities.Article;
+import com.shop.ecommercev2.entities.ParentCategory;
 import java.util.List;
 
-@Entity
-public class Category {
+public class CategoryDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
     private Long categoryId;
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "category")
+    private Long parent_id;
+
     private List<Article> articles ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parentCategoryId")
+
     private ParentCategory parentCategory;
 
 
-    public Category(){}
+    public CategoryDto(){}
 
-    public Category(String name, String description, List<Article> articles, ParentCategory parentCategory) {
+    public CategoryDto(String name, String description, List<Article> articles, ParentCategory parentCategory) {
         this.name = name;
         this.description = description;
         this.articles = articles;
         this.parentCategory = parentCategory;
+    }
+
+    public Long getParent_id() {
+        return parent_id;
+    }
+
+    public void setParent_id(Long parent_id) {
+        this.parent_id = parent_id;
     }
 
     public Long getCategoryId() {
@@ -57,6 +65,9 @@ public class Category {
         return articles;
     }
 
+
+
+
     public void setArticles(List<Article> articles) {
         this.articles = articles;
     }
@@ -71,7 +82,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "CategoryDto{" +
                 "categoryId=" + categoryId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

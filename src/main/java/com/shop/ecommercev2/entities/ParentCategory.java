@@ -11,7 +11,7 @@ public class ParentCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long parentCategoryId;
     private String name;
-    private String parentCategoryDescription;
+    private String description;
 
 
     @OneToMany(mappedBy = "parentCategory")
@@ -19,9 +19,9 @@ public class ParentCategory {
 
     public ParentCategory(){}
 
-    public ParentCategory(String parentCategoryName, String parentCategoryDescription, List<Category> categories) {
-        this.name = parentCategoryName;
-        this.parentCategoryDescription = parentCategoryDescription;
+    public ParentCategory(String name, String description, List<Category> categories) {
+        this.name = name;
+        this.description = description;
         this.categories = categories;
     }
 
@@ -33,20 +33,23 @@ public class ParentCategory {
         this.parentCategoryId = parentCategoryId;
     }
 
-    public String getParentCategoryName() {
+
+    public String getName() {
         return name;
     }
 
-    public void setParentCategoryName(String parentCategoryName) {
-        this.name = parentCategoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getParentCategoryDescription() {
-        return parentCategoryDescription;
+
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setParentCategoryDescription(String parentCategoryDescription) {
-        this.parentCategoryDescription = parentCategoryDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Category> getCategories() {
@@ -55,5 +58,15 @@ public class ParentCategory {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "ParentCategory{" +
+                "parentCategoryId=" + parentCategoryId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", categories=" + categories +
+                '}';
     }
 }
