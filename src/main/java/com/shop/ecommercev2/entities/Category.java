@@ -15,10 +15,16 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Article> articles ;
 
+
+
+
     @ManyToOne(cascade = CascadeType.ALL)
+
     @JoinColumn(name = "parentCategoryId")
     private ParentCategory parentCategory;
 
+
+    private Long parent_id;
 
     public Category(){}
 
@@ -69,14 +75,11 @@ public class Category {
         this.parentCategory = parentCategory;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", articles=" + articles +
-                ", parentCategory=" + parentCategory +
-                '}';
+    public Long getParent_id() {
+        return parent_id;
+    }
+
+    public void setParent_id(Long parent_id) {
+        this.parent_id = parent_id;
     }
 }

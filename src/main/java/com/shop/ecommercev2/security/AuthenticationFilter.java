@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -46,6 +47,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
      - a ce niveau la il se creee une cridential
      */
     @Override
+    @CrossOrigin("*")
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException {
         try {
@@ -64,6 +66,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
+    @CrossOrigin("*")
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
                                             FilterChain chain,
@@ -71,21 +74,23 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         String userName = ((User) auth.getPrincipal()).getUsername();
 
+        IUserService userService = (IUserService) SpringApplicationContext.getBean("userServiceImpl");
+        UserDto userDto = userService.getUser(userName);
+
         String token = Jwts.builder()
                 .setSubject(userName)
+                .claim("id", userDto.getUserId())
+                .claim("name", userDto.getFirstname() + " " + userDto.getLastname())
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.TOKEN_SECRET)
                 .compact();
             res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
 
 
-
-           IUserService userService = (IUserService) SpringApplicationContext.getBean("userServiceImpl");
-//
-           UserDto userDto = userService.getUser(userName);
 //
 //        res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
           res.addHeader("user_id", userDto.getUserId());
+          res.getWriter().write("{\"token\": \"" + token + "\", \"id\": \"" + userDto.getUserId() + "\" }");
 
     }
 }

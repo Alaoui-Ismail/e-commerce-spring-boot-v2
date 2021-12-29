@@ -17,16 +17,15 @@ public class CategoryDto {
     private List<Article> articles ;
 
 
-    private ParentCategory parentCategory;
 
 
     public CategoryDto(){}
 
-    public CategoryDto(String name, String description, List<Article> articles, ParentCategory parentCategory) {
+    public CategoryDto(String name, String description, List<Article> articles) {
         this.name = name;
         this.description = description;
         this.articles = articles;
-        this.parentCategory = parentCategory;
+
     }
 
     public Long getParent_id() {
@@ -72,13 +71,6 @@ public class CategoryDto {
         this.articles = articles;
     }
 
-    public ParentCategory getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(ParentCategory parentCategory) {
-        this.parentCategory = parentCategory;
-    }
 
     @Override
     public String toString() {
@@ -86,8 +78,8 @@ public class CategoryDto {
                 "categoryId=" + categoryId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", parent_id=" + parent_id +
                 ", articles=" + articles +
-                ", parentCategory=" + parentCategory +
                 '}';
     }
 }

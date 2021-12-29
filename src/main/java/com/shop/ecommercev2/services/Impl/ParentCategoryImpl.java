@@ -32,6 +32,8 @@ public class ParentCategoryImpl implements IParentCategoryService {
         if (parentCategory != null) throw new RuntimeException("parent category already exists !");
 
         ParentCategory new_parent_category = new ParentCategory();
+
+
         BeanUtils.copyProperties(parentCategoryDto, new_parent_category);
 
         ParentCategory parentCategory1 = parentCategoryRepository.save(new_parent_category);
@@ -69,6 +71,7 @@ public class ParentCategoryImpl implements IParentCategoryService {
             throw new RuntimeException("parent category does not exists !");
 
         ParentCategory parentCategory = new ParentCategory();
+        //Vo a Bo
         BeanUtils.copyProperties(parentCategoryDto, parentCategory);
 
         parentCategoryRepository.delete(parentCategory);

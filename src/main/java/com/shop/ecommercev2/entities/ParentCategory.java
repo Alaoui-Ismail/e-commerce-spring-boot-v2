@@ -60,13 +60,5 @@ public class ParentCategory {
         this.categories = categories;
     }
 
-    @Override
-    public String toString() {
-        return "ParentCategory{" +
-                "parentCategoryId=" + parentCategoryId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", categories=" + categories +
-                '}';
-    }
+
 }

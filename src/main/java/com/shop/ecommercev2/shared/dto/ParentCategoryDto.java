@@ -42,12 +42,5 @@ public class ParentCategoryDto {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "ParentCategoryDto{" +
-                "parentCategoryId=" + parentCategoryId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
+
 }

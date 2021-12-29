@@ -24,7 +24,8 @@ public class ParentCategoryController {
 
         parentCategoryImpl.saveParentCategory(parentCategoryDto);
 
-        return new ResponseEntity<String>("added successfully", HttpStatus.CREATED);
+
+        return new ResponseEntity<>("added successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/getAll")
