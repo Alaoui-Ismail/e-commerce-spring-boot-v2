@@ -1,5 +1,6 @@
 package com.shop.ecommercev2.services.Impl;
 
+import com.shop.ecommercev2.entities.Article;
 import com.shop.ecommercev2.entities.Category;
 
 import com.shop.ecommercev2.entities.ParentCategory;
@@ -24,6 +25,8 @@ public class CategoryImpl implements ICategoryService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+
 
     @Autowired
     ParentCategoryRepository parentCategoryRepository;
@@ -66,12 +69,13 @@ public class CategoryImpl implements ICategoryService {
 
         if (category == null) throw new RuntimeException(" category does not exists !");
 
-        Category new_category = new Category();
-        BeanUtils.copyProperties(categoryDto, new_category);
+        Category new_category = new Category(categoryDto.getName(), categoryDto.getDescription(), categoryDto.getArticles(), categoryDto.getParentCategory1(),categoryDto.getParent_id());
+        //BeanUtils.copyProperties(categoryDto, new_category);
         new_category.setCategoryId(id);
-
+        new_category.setParentCategory(category.getParentCategory());
         Category category1 = categoryRepository.save(new_category);
         CategoryDto new_CategoryDto = new CategoryDto();
+
 
         BeanUtils.copyProperties(category1, new_CategoryDto);
 
@@ -101,20 +105,30 @@ public class CategoryImpl implements ICategoryService {
 
         List<Category> categoryList = categoryRepository.findAll();
 
-        for(Category c: categoryList){
-            System.out.println("okeeeee" +c.getName());
-        }
 
         System.out.println("impl ");
         List<CategoryDto> categoryDtoList = new ArrayList<>();
 
-        categoryDtoList = modelMapper.map(categoryList, new TypeToken<List<CategoryDto>>() {
-        }.getType());
 
-        for(CategoryDto c: categoryDtoList){
+      //  categoryDtoList = modelMapper.map(categoryList, new TypeToken<List<CategoryDto>>() {
+       // }.getType());
+        for(Category c: categoryList){
+           CategoryDto catDto =new CategoryDto(c.getName(), c.getDescription(), c.getParent_id(), c.getArticles(), c.getParentCategory());
+           catDto.setCategoryId(c.getCategoryId());
+           categoryDtoList.add(catDto);
+            System.out.println("okeeeee new list " +catDto.getName()+" "+ catDto.getParentCategory1().getName());
+        }
+
+       /* for(CategoryDto c: categoryDtoList){
             System.out.println("okeeeee 2 2 " +c.getName()+" "+ c.getParent_id())
             ;
+
+            ParentCategory p = parentCategoryRepository.findById(c.getParent_id()).orElse(null);
+            System.out.println("new sys "+ p.getName());
         }
+
+        */
+
 
         return categoryDtoList;
     }

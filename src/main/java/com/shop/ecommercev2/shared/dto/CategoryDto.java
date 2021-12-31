@@ -1,5 +1,6 @@
 package com.shop.ecommercev2.shared.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shop.ecommercev2.entities.Article;
 import com.shop.ecommercev2.entities.ParentCategory;
 import java.util.List;
@@ -16,16 +17,25 @@ public class CategoryDto {
 
     private List<Article> articles ;
 
+    private ParentCategory parentCategory1;
 
 
+    public ParentCategory getParentCategory1() {
+        return parentCategory1;
+    }
+
+    public void setParentCategory1(ParentCategory parentCategory1) {
+        this.parentCategory1 = parentCategory1;
+    }
 
     public CategoryDto(){}
 
-    public CategoryDto(String name, String description, List<Article> articles) {
+    public CategoryDto(String name, String description, Long parent_id, List<Article> articles, ParentCategory parentCategory1) {
         this.name = name;
         this.description = description;
+        this.parent_id = parent_id;
         this.articles = articles;
-
+        this.parentCategory1 = parentCategory1;
     }
 
     public Long getParent_id() {

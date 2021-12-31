@@ -19,7 +19,7 @@ public class CategoryController {
 
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<CategoryDto>> getAllCategories() {
+    public List<CategoryDto> getAllCategories() {
 
 
         for(CategoryDto c: categoryImpl.getAllCategories()){
@@ -28,7 +28,7 @@ public class CategoryController {
 
 
         System.out.println("break");
-        return new ResponseEntity<>(categoryImpl.getAllCategories(),HttpStatus.OK);
+        return categoryImpl.getAllCategories();
 
 
     }

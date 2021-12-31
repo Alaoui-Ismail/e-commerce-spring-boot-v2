@@ -1,5 +1,7 @@
 package com.shop.ecommercev2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,20 +21,22 @@ public class Category {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-
     @JoinColumn(name = "parentCategoryId")
+    @JsonIgnore
     private ParentCategory parentCategory;
+
 
 
     private Long parent_id;
 
     public Category(){}
 
-    public Category(String name, String description, List<Article> articles, ParentCategory parentCategory) {
+    public Category(String name, String description, List<Article> articles, ParentCategory parentCategory, Long parent_id) {
         this.name = name;
         this.description = description;
         this.articles = articles;
         this.parentCategory = parentCategory;
+        this.parent_id = parent_id;
     }
 
     public Long getCategoryId() {

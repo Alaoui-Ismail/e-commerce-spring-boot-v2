@@ -30,4 +30,7 @@ public class Article {
     private List<Evaluation> evaluations;
 
 
+
+
+
 }
