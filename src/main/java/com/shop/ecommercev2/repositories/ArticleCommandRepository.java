@@ -1,11 +1,9 @@
 package com.shop.ecommercev2.repositories;
 
-import com.shop.ecommercev2.entities.Category;
-
+import com.shop.ecommercev2.entities.CommandArticle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category,Long> {
-    Category findByName (String name);
+public interface ArticleCommandRepository extends JpaRepository<CommandArticle,Long> {
 }

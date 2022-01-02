@@ -1,50 +1,38 @@
-package com.shop.ecommercev2.entities;
+package com.shop.ecommercev2.shared.dto;
 
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
-@Entity
-public class Article {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shop.ecommercev2.entities.Category;
+import com.shop.ecommercev2.entities.Command;
+import com.shop.ecommercev2.entities.Evaluation;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ArticleDto implements Serializable {
+
     private Long articleId;
     private String articleName;
     private String articleDescription;
     private double articlePrice;
     private int articleQuantity;
 
-    @ManyToMany
-    @JoinTable(name = "productCommand",
-            joinColumns = @JoinColumn(name = "articleId"),
-            inverseJoinColumns = @JoinColumn(name = "commandId"))
     private List<Command> commands;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryId")
+    @JsonIgnore
     private Category category;
 
+    private Long categoryId;
 
-    @OneToMany(mappedBy = "article")
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     private List<Evaluation> evaluations;
-
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private Set<CommandArticle> commandArticleSet;
-
-
-    public Article() {
-    }
-
-
-    public Set<CommandArticle> getCommandArticleSet() {
-        return commandArticleSet;
-    }
-
-    public void setCommandArticleSet(Set<CommandArticle> commandArticleSet) {
-        this.commandArticleSet = commandArticleSet;
-    }
 
     public Long getArticleId() {
         return articleId;
@@ -110,13 +98,23 @@ public class Article {
         this.evaluations = evaluations;
     }
 
-    public Article(String articleName, String articleDescription, double articlePrice, int articleQuantity, List<Command> commands, Category category, List<Evaluation> evaluations) {
+
+    public ArticleDto(String articleName, String articleDescription,
+                      double articlePrice, int articleQuantity,
+                      List<Command> commands, Category category,
+                      Long categoryId, List<Evaluation> evaluations) {
         this.articleName = articleName;
         this.articleDescription = articleDescription;
         this.articlePrice = articlePrice;
         this.articleQuantity = articleQuantity;
         this.commands = commands;
         this.category = category;
+        this.categoryId = categoryId;
         this.evaluations = evaluations;
     }
+
+    public ArticleDto() {}
+
+
+
 }
