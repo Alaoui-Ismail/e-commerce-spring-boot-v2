@@ -3,22 +3,31 @@ package com.shop.ecommercev2.shared.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shop.ecommercev2.entities.Article;
 import com.shop.ecommercev2.entities.ParentCategory;
+
 import java.util.List;
 
 public class CategoryDto {
 
 
-
     private Long categoryId;
     private String name;
     private String description;
+    private String nameImage;
 
     private Long parent_id;
 
-    private List<Article> articles ;
+    private List<Article> articles;
+
 
     private ParentCategory parentCategory1;
 
+    public String getNameImage() {
+        return nameImage;
+    }
+
+    public void setNameImage(String nameImage) {
+        this.nameImage = nameImage;
+    }
 
     public ParentCategory getParentCategory1() {
         return parentCategory1;
@@ -28,11 +37,13 @@ public class CategoryDto {
         this.parentCategory1 = parentCategory1;
     }
 
-    public CategoryDto(){}
+    public CategoryDto() {
+    }
 
-    public CategoryDto(String name, String description, Long parent_id, List<Article> articles, ParentCategory parentCategory1) {
+    public CategoryDto(String name, String description, String nameImage, Long parent_id, List<Article> articles, ParentCategory parentCategory1) {
         this.name = name;
         this.description = description;
+        this.nameImage = nameImage;
         this.parent_id = parent_id;
         this.articles = articles;
         this.parentCategory1 = parentCategory1;
@@ -73,8 +84,6 @@ public class CategoryDto {
     public List<Article> getArticles() {
         return articles;
     }
-
-
 
 
     public void setArticles(List<Article> articles) {

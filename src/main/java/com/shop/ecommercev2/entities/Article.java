@@ -15,6 +15,7 @@ public class Article {
     private String articleDescription;
     private double articlePrice;
     private int articleQuantity;
+    private String imageName;
 
     @ManyToMany
     @JoinTable(name = "productCommand",
@@ -110,13 +111,27 @@ public class Article {
         this.evaluations = evaluations;
     }
 
-    public Article(String articleName, String articleDescription, double articlePrice, int articleQuantity, List<Command> commands, Category category, List<Evaluation> evaluations) {
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public Article(String articleName, String articleDescription,
+                   double articlePrice, int articleQuantity,
+                   String imageName, List<Command> commands,
+                   Category category, List<Evaluation> evaluations,
+                   Set<CommandArticle> commandArticleSet) {
         this.articleName = articleName;
         this.articleDescription = articleDescription;
         this.articlePrice = articlePrice;
         this.articleQuantity = articleQuantity;
+        this.imageName = imageName;
         this.commands = commands;
         this.category = category;
         this.evaluations = evaluations;
+        this.commandArticleSet = commandArticleSet;
     }
 }

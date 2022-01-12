@@ -18,7 +18,7 @@ public class ArticleDto implements Serializable {
     private int articleQuantity;
 
     private List<Command> commands;
-
+    private String imageName;
     @JsonIgnore
     private Category category;
 
@@ -98,16 +98,25 @@ public class ArticleDto implements Serializable {
         this.evaluations = evaluations;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
 
     public ArticleDto(String articleName, String articleDescription,
                       double articlePrice, int articleQuantity,
-                      List<Command> commands, Category category,
-                      Long categoryId, List<Evaluation> evaluations) {
+                      List<Command> commands, String imageName,
+                      Category category, Long categoryId,
+                      List<Evaluation> evaluations) {
         this.articleName = articleName;
         this.articleDescription = articleDescription;
         this.articlePrice = articlePrice;
         this.articleQuantity = articleQuantity;
         this.commands = commands;
+        this.imageName = imageName;
         this.category = category;
         this.categoryId = categoryId;
         this.evaluations = evaluations;

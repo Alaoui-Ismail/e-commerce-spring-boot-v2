@@ -23,4 +23,6 @@ public interface ICategoryService {
 
     CategoryDto findCategoryById(Long id);
 
+    List<CategoryDto> findCategoryByParentId(Long id);
+
 }

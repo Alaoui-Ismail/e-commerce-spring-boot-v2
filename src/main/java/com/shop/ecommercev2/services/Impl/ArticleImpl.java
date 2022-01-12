@@ -7,10 +7,12 @@ import com.shop.ecommercev2.repositories.CategoryRepository;
 import com.shop.ecommercev2.services.IArticleService;
 import com.shop.ecommercev2.shared.dto.ArticleDto;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.lang.reflect.Type;
 import java.util.stream.Collectors;
 
 @Service
@@ -96,5 +98,18 @@ public class ArticleImpl implements IArticleService {
         System.out.println("new article" + articleRepository.findAll());
         return articleRepository.findAll().stream().map(article -> modelMapper.map(article, ArticleDto.class))
                 .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<ArticleDto> findArticleyByCategoryId(Long id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        List<Article> searchArticle = articleRepository.findByCategory(category);
+
+//convert list of entities to list of DTO
+        Type listType = new TypeToken<List<ArticleDto>>(){}.getType();
+        List<ArticleDto> articleResponse = modelMapper.map(searchArticle, listType);
+
+        return articleResponse;
     }
 }

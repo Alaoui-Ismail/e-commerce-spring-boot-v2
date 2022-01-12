@@ -13,8 +13,10 @@ public class Category {
     private Long categoryId;
     private String name;
     private String description;
+    private String nameImage;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Article> articles ;
 
 
@@ -27,13 +29,24 @@ public class Category {
 
 
 
+    @JsonIgnore
     private Long parent_id;
+
+    public String getNameImage() {
+        return nameImage;
+    }
+
+    public void setNameImage(String nameImage) {
+        this.nameImage = nameImage;
+    }
+
 
     public Category(){}
 
-    public Category(String name, String description, List<Article> articles, ParentCategory parentCategory, Long parent_id) {
+    public Category(String name, String description, String nameImage, List<Article> articles, ParentCategory parentCategory, Long parent_id) {
         this.name = name;
         this.description = description;
+        this.nameImage = nameImage;
         this.articles = articles;
         this.parentCategory = parentCategory;
         this.parent_id = parent_id;

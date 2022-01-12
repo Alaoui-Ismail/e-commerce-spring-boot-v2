@@ -1,14 +1,14 @@
 package com.shop.ecommercev2.services.Impl;
 
+import com.shop.ecommercev2.entities.Article;
 import com.shop.ecommercev2.entities.Command;
 import com.shop.ecommercev2.entities.CommandArticle;
-import com.shop.ecommercev2.repositories.ArticleCommandRepository;
-import com.shop.ecommercev2.repositories.ArticleRepository;
-import com.shop.ecommercev2.repositories.CommandRepository;
-import com.shop.ecommercev2.repositories.UserRepository;
+import com.shop.ecommercev2.entities.Payment;
+import com.shop.ecommercev2.repositories.*;
 import com.shop.ecommercev2.services.ICommandService;
 import com.shop.ecommercev2.services.IUserService;
 import com.shop.ecommercev2.shared.dto.ArticleCommandDTO;
+import com.shop.ecommercev2.shared.dto.ArticleDto;
 import com.shop.ecommercev2.shared.dto.CommandDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +41,9 @@ public class CommandImpl implements ICommandService {
 
     @Autowired
     ArticleCommandRepository articleCommandRepository;
+
+    @Autowired
+    PaymentRepository paymentRepository;
     @Autowired
     ArticleRepository articleRepository;
 
@@ -122,7 +125,7 @@ public class CommandImpl implements ICommandService {
         commandArticleRequest.setArticle(articleRepository.findByArticleId(articleCommandDTO.getArticle_id()));
 
         commandArticleRequest.setArticleQuantity(qteArticle);
-        System.out.println("test test +"+qteArticle);
+        System.out.println("test test +" + qteArticle);
 
 
         CommandArticle commandArticle = articleCommandRepository.save(commandArticleRequest);
@@ -131,6 +134,32 @@ public class CommandImpl implements ICommandService {
 
 
         return commandArticleResponse;
+
+    }
+
+    @Override
+    public void CommandPayed(CommandDto commandDto) {
+
+
+
+        List<CommandArticle> commandArticles = articleCommandRepository.findByCommandId(commandDto.getCommandId());
+
+        double totalCmd = commandArticles.stream().mapToDouble(x -> x.getArticleQuantity() * x.getArticle().getArticlePrice()).sum();
+
+        Payment p = new Payment();
+        p.setPaymentDate(new Date());
+
+        Payment new_p = paymentRepository.save(p);
+        Command cmd = commandRepository.findById(commandDto.getCommandId()).get();
+        cmd.setCommandTotal(totalCmd);
+        cmd.setValid(false);
+        cmd.setPayment(new_p);
+
+        Command new_cmd  = commandRepository.save(cmd);
+
+
+        //CommandDto cmdResponse = modelMapper.map(new_cmd, CommandDto.class);
+
 
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class CategoryImpl implements ICategoryService {
 
         if (category == null) throw new RuntimeException(" category does not exists !");
 
-        Category new_category = new Category(categoryDto.getName(), categoryDto.getDescription(), categoryDto.getArticles(), categoryDto.getParentCategory1(),categoryDto.getParent_id());
+        Category new_category = new Category(categoryDto.getName(), categoryDto.getDescription(),categoryDto.getNameImage(), categoryDto.getArticles(), categoryDto.getParentCategory1(),categoryDto.getParent_id());
         //BeanUtils.copyProperties(categoryDto, new_category);
         new_category.setCategoryId(id);
         new_category.setParentCategory(category.getParentCategory());
@@ -113,7 +114,7 @@ public class CategoryImpl implements ICategoryService {
       //  categoryDtoList = modelMapper.map(categoryList, new TypeToken<List<CategoryDto>>() {
        // }.getType());
         for(Category c: categoryList){
-           CategoryDto catDto =new CategoryDto(c.getName(), c.getDescription(), c.getParent_id(), c.getArticles(), c.getParentCategory());
+           CategoryDto catDto =new CategoryDto(c.getName(), c.getDescription(),c.getNameImage(), c.getParent_id(), c.getArticles(), c.getParentCategory());
            catDto.setCategoryId(c.getCategoryId());
            categoryDtoList.add(catDto);
             System.out.println("okeeeee new list " +catDto.getName()+" "+ catDto.getParentCategory1().getName());
@@ -139,5 +140,18 @@ public class CategoryImpl implements ICategoryService {
         BeanUtils.copyProperties(categoryRepository.findById(id).orElse(null), categoryDto);
 
         return categoryDto;
+    }
+
+
+    @Override
+    public List<CategoryDto> findCategoryByParentId(Long parentId) {
+        ParentCategory parentCategory = parentCategoryRepository.findById(parentId).orElse(null);
+        List<Category> searchCategory = categoryRepository.findByParentCategory(parentCategory);
+
+
+        Type listType = new TypeToken<List<CategoryDto>>(){}.getType();
+        List<CategoryDto> categoryResponse = modelMapper.map(searchCategory, listType);
+
+        return categoryResponse;
     }
 }

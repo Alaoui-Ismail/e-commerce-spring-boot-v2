@@ -20,4 +20,8 @@ public interface ICommandService {
     CommandDto findByIdCommand( Long id);
 
     ArticleCommandDTO addToBox (ArticleCommandDTO articleCommandDTO);
+
+    void CommandPayed (CommandDto commandDto);
+
+
 }

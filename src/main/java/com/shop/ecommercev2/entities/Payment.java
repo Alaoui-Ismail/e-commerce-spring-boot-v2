@@ -1,7 +1,7 @@
 package com.shop.ecommercev2.entities;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 public class Payment {
@@ -13,4 +13,34 @@ public class Payment {
 
     @OneToOne(mappedBy = "payment")
     private Command command;
+
+    public Long getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+    public Payment(){}
+
+    public Payment(Date paymentDate, Command command) {
+        this.paymentDate = paymentDate;
+        this.command = command;
+    }
 }

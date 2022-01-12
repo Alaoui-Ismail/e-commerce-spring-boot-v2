@@ -12,4 +12,6 @@ public interface IArticleService {
      void deleteArticle(Long idArticle);
 
      List<ArticleDto> getAll();
+
+     List<ArticleDto> findArticleyByCategoryId(Long id);
 }

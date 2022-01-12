@@ -40,6 +40,10 @@ public class CommandController {
         return new ResponseEntity<String>("New article has been added successfully!", HttpStatus.CREATED);
     }
 
-
+    @PostMapping("/payed")
+    public ResponseEntity<String> commandPayed(@RequestBody CommandDto commandDto) {
+        commandService.CommandPayed(commandDto);
+        return new ResponseEntity<String>("Command Payed with success", HttpStatus.CREATED);
+    }
 
 }
