@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/commands")
+@CrossOrigin(origins = "*")
 @RestController
 public class CommandController {
 
@@ -32,6 +33,16 @@ public class CommandController {
 //        System.out.println("auth " +auth);
 
         return new ResponseEntity<List<CommandDto>>(listOfCommands, HttpStatus.OK);
+    }
+
+    @GetMapping("/getValid")
+    public ResponseEntity<CommandDto> getValid() {
+        CommandDto command = commandService.getCommandValid();
+
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        System.out.println("auth " +auth);
+
+        return new ResponseEntity<CommandDto>(command, HttpStatus.OK);
     }
 
     @PostMapping("/add")

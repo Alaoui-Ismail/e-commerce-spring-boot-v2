@@ -1,5 +1,7 @@
 package com.shop.ecommercev2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -27,8 +29,23 @@ public class Command {
     @OneToMany(mappedBy = "command", cascade = CascadeType.ALL)
     private Set<CommandArticle> commandArticleSet;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    @JsonIgnore
+    private Customer customer;
 
-    private Boolean isValid=false;
+
+    private int client_id;
+
+    public int getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
+    }
+
+    private Boolean isValid = false;
 
     public Long getCommandId() {
         return commandId;
@@ -87,17 +104,28 @@ public class Command {
     }
 
 
-    public Command(){}
+    public Command() {
+    }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public Command(Date commandDate, double commandTotal,
                    List<Article> articles, Payment payment,
-                   Set<CommandArticle> commandArticleSet, Boolean isValid) {
+                   Set<CommandArticle> commandArticleSet,
+                   Customer customer, Boolean isValid, int client_id) {
         this.commandDate = commandDate;
         this.commandTotal = commandTotal;
         this.articles = articles;
         this.payment = payment;
         this.commandArticleSet = commandArticleSet;
+        this.customer = customer;
         this.isValid = isValid;
+        this.client_id = client_id;
     }
 }

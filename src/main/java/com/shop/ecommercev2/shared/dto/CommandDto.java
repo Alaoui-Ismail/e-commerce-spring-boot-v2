@@ -12,8 +12,19 @@ public class CommandDto {
     private double commandTotal;
     private Customer customer;
 
-    private Boolean isValid;
 
+
+
+    private Boolean isValid;
+    private int client_id;
+
+    public int getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
+    }
 
     public Long getCommandId() {
         return commandId;
@@ -51,10 +62,11 @@ public class CommandDto {
     public CommandDto() {
     }
 
-    public CommandDto(Date commandDate, double commandTotal, Customer customer, Boolean isValid) {
+    public CommandDto(Date commandDate, double commandTotal, Customer customer, int client_id, Boolean isValid) {
         this.commandDate = commandDate;
         this.commandTotal = commandTotal;
         this.customer = customer;
+        this.client_id = client_id;
         this.isValid = isValid;
     }
 

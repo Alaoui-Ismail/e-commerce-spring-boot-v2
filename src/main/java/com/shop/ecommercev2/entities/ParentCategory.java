@@ -19,6 +19,7 @@ public class ParentCategory {
     @OneToMany(mappedBy = "parentCategory")
     private List<Category> categories;
 
+
     public ParentCategory() {
     }
 

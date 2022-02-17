@@ -1,6 +1,8 @@
 package com.shop.ecommercev2.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,11 +16,13 @@ public class CommandArticle {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
+    @JsonIgnore
     private Article article;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "command_id")
+    @JsonIgnore
     private Command command;
 
 

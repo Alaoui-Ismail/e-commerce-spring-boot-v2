@@ -18,7 +18,7 @@ public class CategoryDto {
 
     private List<Article> articles;
 
-
+@JsonIgnore
     private ParentCategory parentCategory1;
 
     public String getNameImage() {

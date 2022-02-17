@@ -8,6 +8,7 @@ import com.shop.ecommercev2.repositories.CategoryRepository;
 
 import com.shop.ecommercev2.repositories.ParentCategoryRepository;
 import com.shop.ecommercev2.services.ICategoryService;
+import com.shop.ecommercev2.shared.dto.ArticleDto;
 import com.shop.ecommercev2.shared.dto.CategoryDto;
 
 import com.shop.ecommercev2.shared.dto.ParentCategoryDto;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryImpl implements ICategoryService {
@@ -104,6 +106,7 @@ public class CategoryImpl implements ICategoryService {
     public List<CategoryDto> getAllCategories() {
 
 
+
         List<Category> categoryList = categoryRepository.findAll();
 
 
@@ -111,12 +114,12 @@ public class CategoryImpl implements ICategoryService {
         List<CategoryDto> categoryDtoList = new ArrayList<>();
 
 
-      //  categoryDtoList = modelMapper.map(categoryList, new TypeToken<List<CategoryDto>>() {
-       // }.getType());
+        //  categoryDtoList = modelMapper.map(categoryList, new TypeToken<List<CategoryDto>>() {
+        // }.getType());
         for(Category c: categoryList){
-           CategoryDto catDto =new CategoryDto(c.getName(), c.getDescription(),c.getNameImage(), c.getParent_id(), c.getArticles(), c.getParentCategory());
-           catDto.setCategoryId(c.getCategoryId());
-           categoryDtoList.add(catDto);
+            CategoryDto catDto =new CategoryDto(c.getName(), c.getDescription(),c.getNameImage(), c.getParent_id(), c.getArticles(), c.getParentCategory());
+            catDto.setCategoryId(c.getCategoryId());
+            categoryDtoList.add(catDto);
             System.out.println("okeeeee new list " +catDto.getName()+" "+ catDto.getParentCategory1().getName());
         }
 

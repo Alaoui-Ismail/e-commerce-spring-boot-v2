@@ -62,14 +62,20 @@ public class CommandImpl implements ICommandService {
         CommandDto commandDto = new CommandDto();
 
         String currentUserName = "";
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             currentUserName = authentication.getName();
 
 
-            // System.out.println("name connect " + iUserService.getUser(currentUserName).getId());
+
+             System.out.println("name connect " + iUserService.getUser(currentUserName).getId());
         }
-        commandDto.setCustomer(userRepository.findByEmail(currentUserName));
+        System.out.println("name connect " + iUserService.getUser(currentUserName).getId());
+
+      //  commandDto.setCtmr_id(iUserService.getUser(currentUserName).getId());
+         // commandDto.setCtmr_id(1L);
+
         commandDto.setCommandDate(new Date());
         commandDto.setValid(true);
         Command commandRequest = modelMapper.map(commandDto, Command.class);
@@ -123,7 +129,7 @@ public class CommandImpl implements ICommandService {
 
         commandArticleRequest.setCommand(commandRepository.getById(idCmd));
         commandArticleRequest.setArticle(articleRepository.findByArticleId(articleCommandDTO.getArticle_id()));
-
+      //  commandArticleRequest.setId();
         commandArticleRequest.setArticleQuantity(qteArticle);
         System.out.println("test test +" + qteArticle);
 
@@ -140,6 +146,20 @@ public class CommandImpl implements ICommandService {
     @Override
     public void CommandPayed(CommandDto commandDto) {
 
+        String currentUserNam = "";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserNam = authentication.getName();
+
+
+
+            System.out.println("name connect " + iUserService.getUser(currentUserNam).getId());
+        }
+        System.out.println("name connect " + iUserService.getUser(currentUserNam).getId());
+
+        //  commandDto.setCtmr_id(iUserService.getUser(currentUserName).getId());
+        //commandDto.setCtmr_id(1L);
 
 
         List<CommandArticle> commandArticles = articleCommandRepository.findByCommandId(commandDto.getCommandId());
@@ -151,6 +171,9 @@ public class CommandImpl implements ICommandService {
 
         Payment new_p = paymentRepository.save(p);
         Command cmd = commandRepository.findById(commandDto.getCommandId()).get();
+        //cmd.setClient_id((int)iUserService.getUser(currentUserNam).getId());
+       // cmd.getCtmr_id();
+        cmd.setClient_id(commandDto.getClient_id());
         cmd.setCommandTotal(totalCmd);
         cmd.setValid(false);
         cmd.setPayment(new_p);
@@ -161,5 +184,21 @@ public class CommandImpl implements ICommandService {
         //CommandDto cmdResponse = modelMapper.map(new_cmd, CommandDto.class);
 
 
+    }
+
+    @Override
+    public CommandDto getCommandValid() {
+        List<CommandDto> lists = getAllCommands();
+        int i;
+
+
+        for(i=0;i<lists.size()-1;i++){
+            if(lists.get(i).getValid()==true)
+                System.out.println("listss " +lists.get(i).getCommandId());
+
+        }
+        System.out.println("listss id " +lists.get(i).getCommandId());
+
+        return lists.get(i);
     }
 }

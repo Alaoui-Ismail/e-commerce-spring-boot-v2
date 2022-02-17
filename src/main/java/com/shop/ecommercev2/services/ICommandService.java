@@ -24,4 +24,7 @@ public interface ICommandService {
     void CommandPayed (CommandDto commandDto);
 
 
+    CommandDto getCommandValid();
+
+
 }
